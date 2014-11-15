@@ -35,11 +35,8 @@
         <div class="col-md-9">
             <h3 class="no-margin"><?php echo $prodotto->descrizione;?></h3>
             <p>
-                Categoria: <strong><?php echo $prodotto->categoria_sub; ?></strong><br />
+                Produttore: <strong><?php echo $prodotto->note; ?></strong><br />
                 <?php echo $this->partial('prodotti/price-box.tpl.php', array('prodotto' => $prodotto)); ?>
-        <?php if($prodotto->note != ""): ?>
-                <a href="javascript:void(0)" class="note" data-toggle="popover" title="" data-content="<?php echo $prodotto->note; ?>">Visualizza note</a>
-        <?php endif; ?>
             </p>
         </div>
         <div class="col-md-3">

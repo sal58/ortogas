@@ -212,7 +212,7 @@ class Model_Ordini extends MyFw_DB_Base {
             $sqlp .= " AND oup.idprodotto= :idprodotto";
             $arExecute["idprodotto"] = $idprodotto;
         }
-        $sqlp .= " ORDER BY p.codice";
+        $sqlp .= " ORDER BY p.idsubcat, p.note";
         $sthp = $this->db->prepare($sqlp);
         $sthp->execute($arExecute);
         $prodotti = $sthp->fetchAll(PDO::FETCH_OBJ);
