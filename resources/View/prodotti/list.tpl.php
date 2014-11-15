@@ -26,6 +26,7 @@
         <div class="col-md-10">
             <h3 class="no-margin"><?php echo $pObj->descrizione;?></h3>
             <p>
+                Produttore: <strong><?php echo $pObj->note; ?></strong><br />
                 Codice: <strong><?php echo $pObj->codice; ?></strong><br />
             <?php echo $this->partial('prodotti/price-box.tpl.php', array('prodotto' => $pObj)); ?>
             <?php if(!$pObj->isAttivo()): ?>

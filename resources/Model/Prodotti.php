@@ -33,7 +33,7 @@ class Model_Prodotti extends MyFw_DB_Base {
               ." JOIN categorie AS c ON cs.idcat=c.idcat "
               ." WHERE p.idproduttore= :idproduttore";
         $sql .= (!is_null($attivo)) ? " AND p.attivo='$attivo'" : "";
-        $sql .=" ORDER BY c.descrizione, p.codice";
+        $sql .=" ORDER BY p.idsubcat, p.note";
         //echo $sql; die;
         $sth = $this->db->prepare($sql);
         $sth->execute(array('idproduttore' => $idproduttore));        

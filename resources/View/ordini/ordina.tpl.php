@@ -1,4 +1,4 @@
-<h2>Produttore <strong><?php echo $this->produttore->ragsoc;?></strong></h2>
+<h2><?php echo $this->produttore->ragsoc;?></h2>
 
 <form id="prod_ordini_form" class="ordini" action="/ordini/ordina/idordine/<?php echo $this->ordine->idordine;?>" method="post">
 

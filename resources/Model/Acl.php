@@ -37,10 +37,10 @@ class Model_Acl
         $this->allow('User', 'Dashboard');
         $this->allow('User', 'Users');
         $this->allow('User', 'Ordini');
-        $this->allow('User', 'Gruppo');
-        $this->allow('User', 'Produttori');
-        $this->allow('User', 'Prodotti');
-        $this->allow('User', 'GestioneOrdini');
+//        $this->allow('User', 'Gruppo');
+//        $this->allow('User', 'Produttori');
+//        $this->allow('User', 'Prodotti');
+//        $this->allow('User', 'GestioneOrdini');
         
 //        $this->allow('Free', 'utenza');
 //        $this->allow('Free', 'utenze');
