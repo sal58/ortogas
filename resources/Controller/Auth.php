@@ -148,6 +148,7 @@ class Controller_Auth extends MyFw_Controller {
                                     $mail->setViewParam("new_user", $fValues["nome"] . " " . $fValues["cognome"] );
                                     $mail->setViewParam("gruppo", $group->nome);
                                     $mail->setViewParam("email_user", $fValues["email"]);
+                                    $mail->setViewParam("q1_conosciuti", $fValues["q1_conosciuti"]);
                                     $config = Zend_Registry::get("appConfig");
                                     $mail->setViewParam("url_environment", $config->url_environment);
                                     $this->view->sended = $mail->sendHtmlTemplate("registration.new_user_subscribe.tpl.php");

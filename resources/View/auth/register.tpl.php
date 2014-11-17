@@ -6,6 +6,7 @@
         <?php echo $this->form->renderField('nome'); ?>
         <?php echo $this->form->renderField('cognome'); ?>
         <?php echo $this->form->renderField('num_members'); ?>
+        <?php echo $this->form->renderField('q1_conosciuti'); ?>
     </fieldset>
     <fieldset class="border_top">
         <legend>Dati di accesso</legend>

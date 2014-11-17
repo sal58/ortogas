@@ -31,6 +31,12 @@ class Form_User extends MyFw_Form {
                         'maxlength' => 2,
                         'required'  => true
             ));
+        $this->addField('q1_conosciuti', array(
+                        'label'     => 'Come ci hai conosciuto?',
+                        'size'      => 40,
+                        'maxlength' => 256,
+                        'required'  => true
+            ));
 
         $this->addField('email', array(
                         'label'     => 'Email',
