@@ -14,32 +14,23 @@ class Model_Ordini_Calcoli_CostoSpedizione {
         $this->ocuObj = $ocuObj;
     }
     
-    function getCostoSpedizioneRipartito() {
-        if(is_null($this->cs))
-        {
-            $this->cs = 0;
-            if($this->ocuObj->hasCostoSpedizione() && count($this->ocuObj->getProdottiUtenti()) > 0) 
-            {
-                $numUsers = 0;
-                foreach($this->ocuObj->getProdottiUtenti() AS $iduser => $arU) 
-                {
-                    $csu = $this->ocuObj->getTotaleByIduser($iduser);
-                    if($csu > 0)
-                        $numUsers++;
-                }
-                if($numUsers > 0) {
-                    $this->cs = ($this->ocuObj->getCostoSpedizione() / $numUsers);
-                }
-            }
-        }
-        return $this->cs;
-    }
-    
     function getCostoSpedizioneRipartitoByIduser($iduser) 
     {
-        // Paga Costo Spedizione solo se il totale ordinato è > 0
-        // questo per evitare che paghi solo le spese di spedizione quando ordina 1 solo prodotto che poi risulta NON disponibile
-        return ($this->ocuObj->getTotaleByIduser($iduser) > 0) ? $this->getCostoSpedizioneRipartito() : 0;
+        $cs = 0;
+        if($this->ocuObj->hasCostoSpedizione() && count($this->ocuObj->getProdottiUtenti()) > 0) 
+        {
+            $totaleUser = $this->ocuObj->getTotaleByIduser($iduser);
+            $costoSpedizione = $this->ocuObj->getCostoSpedizione();
+            // GET TOTALE
+            $totaleOrdine = 0;
+            foreach($this->ocuObj->getProdottiUtenti() AS $iduser => $arU) 
+            {
+                $totaleOrdine += $this->ocuObj->getTotaleByIduser($iduser);
+            }
+            // GET COSTO SPEDIZIONE - MEDIA PESATA
+            $cs = $totaleUser * $costoSpedizione / $totaleOrdine;
+        }
+        return $cs;
     }
     
 }

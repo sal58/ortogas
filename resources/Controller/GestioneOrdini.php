@@ -379,8 +379,49 @@ class Controller_GestioneOrdini extends MyFw_Controller {
         $this->view->ordCalcObj = $ordCalcObj;
     }
     
-    function inviaAction() {
-        // TODO: Invia email...
+    function inviaRiepilogoUtentiAction() {
+        
+        $layout = Zend_Registry::get("layout");
+        $layout->disableDisplay();        
+        
+        // GET PRODUCTS LIST with Qta Ordered
+        $ordObj = new Model_Ordini();
+        $listProdOrdered = $ordObj->getProdottiOrdinatiByIdordine($this->_ordine->idordine);
+        $ordCalcObj = new Model_Ordini_Calcoli_Utenti();
+        // SET ORDINE e PRODOTTI
+        $ordCalcObj->setOrdObj($this->_ordine);
+        $ordCalcObj->setProdotti($listProdOrdered);
+        $prodottiUtenti = $ordCalcObj->getProdottiUtenti();
+        
+        // INVIO EMAIL ad ogni UTENTE con riepilogo ORDINE
+        $mail = new MyFw_Mail();
+        $mail->setSubject("Ordine Fermento Naturale - Consegna");
+        $im = 0;
+        $is = 0;
+        foreach($prodottiUtenti AS $iduser => $ordine) 
+        {
+            $nameUser = $ordine["nome"] . $ordine["cognome"];
+            $mail->addTo($ordine["email"], $nameUser);
+//            $mail->addTo("jazzo72@gmail.com", "Jazzo");
+            $mail->addBcc("fermento.naturale@gmail.com");
+            $mail->setViewParam("iduser", $iduser );
+            $mail->setViewParam("ordine", $ordine );
+            $mail->setViewParam("ordCalcObj", $ordCalcObj );
+            $config = Zend_Registry::get("appConfig");
+            $mail->setViewParam("url_environment", $config->url_environment);
+            $sended = $mail->sendHtmlTemplate("fermento.consegna_ordine.tpl.php");
+            // CLEAR ALL RECIPIENTS to send a NEW email
+            $mail->clearRecipients();
+
+            // Update counters
+            $im++;
+            if($sended) {
+                $is++;
+            }
+        }
+        
+        echo "Inviate $is emails su $im da inviare!";
+        
     }
     
     function movestatusAction() {
