@@ -17,7 +17,11 @@
             <tbody>
         <?php foreach ($user["prodotti"] AS $idprodotto => $pObj): ?>
             <?php if($pObj->isDisponibile()): ?>
+                <?php if($pObj->getQtaReale() > 0): ?>
                 <tr>
+                <?php else: ?>
+                <tr class="strike">
+                <?php endif; ?>                    
             <?php else: ?>
                 <tr class="danger strike">
             <?php endif; ?>
@@ -35,11 +39,18 @@
                     <td class="text-right"><strong><?php echo $this->valuta($this->ordCalcObj->getSpedizione()->getCostoSpedizioneRipartitoByIduser($iduser)); ?></strong></td>
                 </tr>
         <?php endif; ?>
+                <tr class="warning">
+                    <td colspan="3">&nbsp;</td>
+                    <td><b>Quota associativa Anno 2015</b></td>
+                    <td class="text-right"><strong><?php echo $this->valuta(15); ?></strong></td>
+                </tr>
             </tbody>
         </table>        
         
         <div class="sub_menu">
-            <h3 class="totale">Totale utente: <strong><?php echo $this->valuta($this->ordCalcObj->getTotaleConSpedizioneByIduser($iduser)) ?></strong></h3>
+            <h3 class="totale">Totale utente: <strong><?php 
+            $totale = $this->ordCalcObj->getTotaleConSpedizioneByIduser($iduser) + 15;
+            echo $this->valuta($totale) ?></strong></h3>
         </div>                    
         <div class="my_clear" style="clear:both;">&nbsp;</div>
     <?php endforeach; ?>
