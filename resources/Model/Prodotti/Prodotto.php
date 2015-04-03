@@ -24,6 +24,7 @@ class Model_Prodotti_Prodotto {
         'note',
         'categoria',
         'categoria_sub',
+        'new_product'
     );
     
     // array values

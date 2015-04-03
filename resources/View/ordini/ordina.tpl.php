@@ -37,6 +37,9 @@
             <p>
                 Produttore: <strong><?php echo $prodotto->note; ?></strong><br />
                 <?php echo $this->partial('prodotti/price-box.tpl.php', array('prodotto' => $prodotto)); ?>
+            <?php if($prodotto->new_product): ?>    
+                <strong class="text-danger">Novit&aacute; 2015</strong
+            <?php endif; ?>
             </p>
         </div>
         <div class="col-md-3">
