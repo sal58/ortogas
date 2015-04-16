@@ -39,17 +39,12 @@
                     <td class="text-right"><strong><?php echo $this->valuta($this->ordCalcObj->getSpedizione()->getCostoSpedizioneRipartitoByIduser($iduser)); ?></strong></td>
                 </tr>
         <?php endif; ?>
-                <tr class="warning">
-                    <td colspan="3">&nbsp;</td>
-                    <td><b>Quota associativa Anno 2015</b></td>
-                    <td class="text-right"><strong><?php echo $this->valuta(15); ?></strong></td>
-                </tr>
             </tbody>
         </table>        
         
         <div class="sub_menu">
             <h3 class="totale">Totale utente: <strong><?php 
-            $totale = $this->ordCalcObj->getTotaleConSpedizioneByIduser($iduser) + 15;
+            $totale = $this->ordCalcObj->getTotaleConSpedizioneByIduser($iduser);
             echo $this->valuta($totale) ?></strong></h3>
         </div>                    
         <div class="my_clear" style="clear:both;">&nbsp;</div>
