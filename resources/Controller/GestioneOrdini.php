@@ -393,6 +393,11 @@ class Controller_GestioneOrdini extends MyFw_Controller {
         $ordCalcObj->setProdotti($listProdOrdered);
         $prodottiUtenti = $ordCalcObj->getProdottiUtenti();
         
+        // GET ELENCO SOCI
+        $sthp = $this->getDB()->prepare("SELECT iduser FROM users WHERE socio='S'");
+        $sthp->execute();
+        $arSoci = $sthp->fetchAll(PDO::FETCH_COLUMN, 0);
+        
         // INVIO EMAIL ad ogni UTENTE con riepilogo ORDINE
         $mail = new MyFw_Mail();
         $mail->setSubject("Ordine Fermento Naturale - Consegna");
@@ -405,6 +410,7 @@ class Controller_GestioneOrdini extends MyFw_Controller {
 //            $mail->addTo("jazzo72@gmail.com", "Jazzo");
             $mail->addBcc("fermento.naturale@gmail.com");
             $mail->setViewParam("iduser", $iduser );
+            $mail->setViewParam("arSoci", $arSoci );
             $mail->setViewParam("ordine", $ordine );
             $mail->setViewParam("ordCalcObj", $ordCalcObj );
             $config = Zend_Registry::get("appConfig");

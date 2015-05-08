@@ -33,7 +33,7 @@ Riepilogo del tuo ordine:<br />
     <?php else: ?>
         <tr style="background-color: #f2dede; text-decoration: line-through;">
     <?php endif; ?>
-            <td><strong><?php echo $pObj->getQtaReale();?> <?php echo $arWithMultip[$pObj->udm]["label"]; ?> </strong></td>
+            <td><strong><?php echo $pObj->getQtaReale();?> <?php echo (isset($arWithMultip[$pObj->udm]) ? $arWithMultip[$pObj->udm]["label"] : $pObj->udm ); ?> </strong></td>
             <td><?php echo $pObj->codice;?></td>
             <td><?php echo $pObj->getDescrizionePrezzo();?></td>
             <td><?php echo $pObj->descrizione;?></td>
@@ -47,17 +47,23 @@ Riepilogo del tuo ordine:<br />
             <td class="text-right"><strong><?php echo $this->valuta($this->ordCalcObj->getSpedizione()->getCostoSpedizioneRipartitoByIduser($this->iduser)); ?></strong></td>
         </tr>
 <?php endif; ?>
+<?php if(!in_array($this->iduser, $this->arSoci)): 
+    // NON SOCIO
+    $totale = $this->ordCalcObj->getTotaleConSpedizioneByIduser($this->iduser) + 15;
+?>        
         <tr style="background-color: #fcf8e3;">
             <td colspan="3">&nbsp;</td>
             <td><b>Quota associativa Anno 2015</b></td>
             <td class="text-right"><strong><?php echo $this->valuta(15); ?></strong></td>
         </tr>
+<?php else: 
+    // SOCIO
+    $totale = $this->ordCalcObj->getTotaleConSpedizioneByIduser($this->iduser);
+endif; ?>        
         <tr style="background-color: #dff0d8;">
             <td colspan="3">&nbsp;</td>
             <td><b>Totale</b></td>
-            <td><strong><?php 
-            $totale = $this->ordCalcObj->getTotaleConSpedizioneByIduser($this->iduser) + 15;
-            echo $this->valuta($totale); ?></strong></td>
+            <td><strong><?php echo $this->valuta($totale); ?></strong></td>
         </tr>
     </tbody>
 </table>        
